@@ -70,7 +70,7 @@ for i in range(len(hlist)):
         plt.subplot(len(hlist), len(lambdalist), int(i*len(lambdalist) + j + 1))
         plot_func(x_all, y_all, hlist[i], lambdalist[j], err)
 
-plt.savefig('result.png', bbox_inches='tight')
+plt.savefig('../../output/Lec2/result.png', bbox_inches='tight')
 
 # serach best h, l
 minlist = np.array([min(error_list[i]) for i in range(len(error_list))])
