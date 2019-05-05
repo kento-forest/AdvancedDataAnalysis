@@ -5,15 +5,15 @@ lambdalist = [0.001, 0.01, 0.1, 1]
 hlist = [0.1, 1, 10]
 
 # set seed
-np.random.seed(10)
+np.random.seed(16)
 
-p = 1e-7
+p = 1e-5
 
 # sample data 
 def generate_sample(xmin, xmax, sample_size):
     x = (xmax - xmin)*np.random.rand(sample_size) + xmin
     target = np.sin(np.pi * x) / (np.pi * x) + 0.1 * x
-    noise = 0.05 * np.random.randn(sample_size)
+    noise = 0.1 * np.random.randn(sample_size)
     return x, target + noise
 
 def cal_Kernel(x, c, h):
@@ -27,9 +27,9 @@ def update_one_step(x, y, z, u, h, l):
     return theta_next, z_next, u_next
 
 def train(x, y, h, l, p):
-    z = np.ones(y.shape[0])
-    u = np.ones(y.shape[0])
-    theta = np.zeros(y.shape[0])
+    z = np.random.rand(y.shape[0])
+    u = np.random.rand(y.shape[0])
+    theta = np.random.rand(y.shape[0])
 
     for i in range(100):
         theta, z, u = update_one_step(x, y, z, u, h, l)
@@ -56,7 +56,7 @@ def cross_validation(x_all, y_all, h, l, splited_size):
     return sum(errorlist)/len(errorlist)
 
 
-def plot_func(x_all, y_all, h, l, error):
+def plot_func(x_all, y_all, xmin, xmax, h, l, error):
     global p
     # plot用のデータ作成
     x_true = np.arange(xmin, xmax, 0.01)
@@ -70,7 +70,7 @@ def plot_func(x_all, y_all, h, l, error):
     plt.scatter(x_all, y_all, s=5)
     
 # create sample data
-sample_size = 100
+sample_size = 50
 xmin, xmax = -3, 3
 x_all, y_all = generate_sample(xmin=xmin, xmax=xmax, sample_size=sample_size)
 
@@ -83,7 +83,7 @@ for i in range(len(hlist)):
         err = cross_validation(x_all, y_all, hlist[i], lambdalist[j], 10)
         error_list[i].append(err)
         plt.subplot(len(hlist), len(lambdalist), int(i*len(lambdalist) + j + 1))
-        plot_func(x_all, y_all, hlist[i], lambdalist[j], err)
+        plot_func(x_all, y_all, xmin, xmax, hlist[i], lambdalist[j], err)
 
 plt.savefig('../../output/Lec3/result.png', bbox_inches='tight')
 
@@ -93,3 +93,14 @@ hidx = np.argmin(minlist)
 lidx = np.argmin(np.array(error_list[hidx]))
 
 print('h = {}, l = {}'.format(hlist[hidx], lambdalist[lidx]))
+h, l = hlist[hidx], lambdalist[lidx]
+
+# train with this h l
+theta = train(x_all, y_all, h, l, p)
+
+# visualize theta
+param_idx = [i for i in range(len(theta))]
+fig = plt.figure(figsize=(10, 8), dpi=100)
+plt.scatter(param_idx, theta, marker='.', s=50)
+plt.plot([param_idx[0], param_idx[-1]], [0, 0], c='r', lw=1)
+plt.savefig('../../output/Lec3/params.png', bbox_inches='tight')
