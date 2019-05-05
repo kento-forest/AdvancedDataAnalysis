@@ -44,7 +44,7 @@ def cross_validation(x_all, y_all, h, l, splited_size):
 
 def plot_func(x_all, y_all, h, l, error):
     # plot用のデータ作成
-    x_true = np.arange(xmin, xmax, 0.01)
+    x_true = np.arange(-3, 3, 0.01)
     y_true = np.sin(np.pi * x_true) / (np.pi * x_true) + 0.1 * x_true
     theta = train(x_all, y_all, h, l)
     y_pre = predict(x_all, x_true, h, l, theta)
