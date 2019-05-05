@@ -11,7 +11,7 @@ np.random.seed(10)
 def generate_sample(xmin, xmax, sample_size):
     x = (xmax - xmin)*np.random.rand(sample_size) + xmin
     target = np.sin(np.pi * x) / (np.pi * x) + 0.1 * x
-    noise = 0.05 * np.random.randn(sample_size)
+    noise = 0.1 * np.random.randn(sample_size)
     return x, target + noise
 
 def cal_Kernel(x, c, h):
@@ -55,7 +55,7 @@ def plot_func(x_all, y_all, h, l, error):
     plt.scatter(x_all, y_all, s=5)
     
 # create sample data
-sample_size = 100
+sample_size = 50
 xmin, xmax = -3, 3
 x_all, y_all = generate_sample(xmin=xmin, xmax=xmax, sample_size=sample_size)
 
@@ -78,3 +78,14 @@ hidx = np.argmin(minlist)
 lidx = np.argmin(np.array(error_list[hidx]))
 
 print('h = {}, l = {}'.format(hlist[hidx], lambdalist[lidx]))
+h, l = hlist[hidx], lambdalist[lidx]
+
+# train with this h l
+theta = train(x_all, y_all, h, l)
+
+# visualize theta
+param_idx = [i for i in range(len(theta))]
+fig = plt.figure(figsize=(10, 8), dpi=100)
+plt.scatter(param_idx, theta, marker='.', s=50)
+plt.plot([param_idx[0], param_idx[-1]], [0, 0], c='r', lw=1)
+plt.savefig('../../output/Lec2/params.png', bbox_inches='tight')
