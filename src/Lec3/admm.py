@@ -1,13 +1,13 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-lambdalist = [0.001, 0.01, 0.1, 1]
+lambdalist = [0.001, 0.01, 0.1]
 hlist = [0.1, 1, 10]
 
 # set seed
 np.random.seed(16)
 
-p = 1e-5
+p = 1e-4
 
 # sample data 
 def generate_sample(xmin, xmax, sample_size):
@@ -29,12 +29,13 @@ def update_one_step(x, y, z, u, h, l):
 def train(x, y, h, l, p):
     z = np.random.rand(y.shape[0])
     u = np.random.rand(y.shape[0])
-    theta = np.random.rand(y.shape[0])
+    theta_pre = np.random.rand(y.shape[0])
 
-    for i in range(100):
+    for i in range(10000):
         theta, z, u = update_one_step(x, y, z, u, h, l)
-        if np.linalg.norm(theta - z) < p:
+        if np.linalg.norm(theta - theta_pre) < p:
             break
+        theta_pre = theta
     return theta
 
 def predict(x, X, h, l, theta):
@@ -56,7 +57,7 @@ def cross_validation(x_all, y_all, h, l, splited_size):
     return sum(errorlist)/len(errorlist)
 
 
-def plot_func(x_all, y_all, xmin, xmax, h, l, error):
+def plot_func(x_all, y_all, xmin, xmax, h, l, error=None):
     global p
     # plot用のデータ作成
     x_true = np.arange(xmin, xmax, 0.01)
@@ -64,7 +65,10 @@ def plot_func(x_all, y_all, xmin, xmax, h, l, error):
     theta = train(x_all, y_all, h, l, p)
     y_pre = predict(x_all, x_true, h, l, theta)
     # plot
-    plt.title('$\lambda$ = {}, h = {}, error = {:.3f}'.format(l, h, error))
+    if error != None:
+        plt.title('$\lambda$ = {}, h = {}, error = {:.3f}'.format(l, h, error))
+    else:
+        plt.title('$\lambda$ = {}, h = {}'.format(l, h))
     plt.plot(x_true, y_true, c='r', lw=1.5)
     plt.plot(x_true, y_pre, c='limegreen', lw=1.5)
     plt.scatter(x_all, y_all, s=5)
@@ -74,26 +78,30 @@ sample_size = 50
 xmin, xmax = -3, 3
 x_all, y_all = generate_sample(xmin=xmin, xmax=xmax, sample_size=sample_size)
 
-error_list = [[] for _ in range(len(hlist))]
 
-fig = plt.figure(figsize=(16, 10), dpi=200)
-plt.rcParams["font.size"] = 10
-for i in range(len(hlist)):
-    for j in range(len(lambdalist)):
-        err = cross_validation(x_all, y_all, hlist[i], lambdalist[j], 10)
-        error_list[i].append(err)
-        plt.subplot(len(hlist), len(lambdalist), int(i*len(lambdalist) + j + 1))
-        plot_func(x_all, y_all, xmin, xmax, hlist[i], lambdalist[j], err)
+##########################################################
+# 交差検証によってh, l決める場合は以下のコメントアウトを外す．#
+##########################################################
+h, l = 1, 0.01
+# error_list = [[] for _ in range(len(hlist))]
+# fig = plt.figure(figsize=(16, 10), dpi=200)
+# plt.rcParams["font.size"] = 10
+# for i in range(len(hlist)):
+#     for j in range(len(lambdalist)):
+#         err = cross_validation(x_all, y_all, hlist[i], lambdalist[j], 10)
+#         error_list[i].append(err)
+#         plt.subplot(len(hlist), len(lambdalist), int(i*len(lambdalist) + j + 1))
+#         plot_func(x_all, y_all, xmin, xmax, hlist[i], lambdalist[j], err)
+#
+# plt.savefig('../../output/Lec3/result.png', bbox_inches='tight')
 
-plt.savefig('../../output/Lec3/result.png', bbox_inches='tight')
+# # serach best h, l
+# minlist = np.array([min(error_list[i]) for i in range(len(error_list))])
+# hidx = np.argmin(minlist)
+# lidx = np.argmin(np.array(error_list[hidx]))
 
-# serach best h, l
-minlist = np.array([min(error_list[i]) for i in range(len(error_list))])
-hidx = np.argmin(minlist)
-lidx = np.argmin(np.array(error_list[hidx]))
-
-print('h = {}, l = {}'.format(hlist[hidx], lambdalist[lidx]))
-h, l = hlist[hidx], lambdalist[lidx]
+# print('h = {}, l = {}'.format(hlist[hidx], lambdalist[lidx]))
+# h, l = hlist[hidx], lambdalist[lidx]
 
 # train with this h l
 theta = train(x_all, y_all, h, l, p)
@@ -104,3 +112,7 @@ fig = plt.figure(figsize=(10, 8), dpi=100)
 plt.scatter(param_idx, theta, marker='.', s=50)
 plt.plot([param_idx[0], param_idx[-1]], [0, 0], c='r', lw=1)
 plt.savefig('../../output/Lec3/params.png', bbox_inches='tight')
+
+fig = plt.figure(figsize=(10, 8), dpi=100)
+plot_func(x_all, y_all, xmin, xmax, h, l)
+plt.savefig('../../output/Lec3/result2.png', bbox_inches='tight')

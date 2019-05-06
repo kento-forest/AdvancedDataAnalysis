@@ -5,7 +5,7 @@ lambdalist = [0.001, 0.01, 0.1, 1]
 hlist = [0.1, 1, 10]
 
 # set seed
-np.random.seed(10)
+np.random.seed(16)
 
 # sample data 
 def generate_sample(xmin, xmax, sample_size):
@@ -89,3 +89,7 @@ fig = plt.figure(figsize=(10, 8), dpi=100)
 plt.scatter(param_idx, theta, marker='.', s=50)
 plt.plot([param_idx[0], param_idx[-1]], [0, 0], c='r', lw=1)
 plt.savefig('../../output/Lec2/params.png', bbox_inches='tight')
+
+fig = plt.figure(figsize=(10, 8), dpi=100)
+plot_func(x_all, y_all, h, l, min(minlist))
+plt.savefig('../../output/Lec2/result2.png', bbox_inches='tight')
