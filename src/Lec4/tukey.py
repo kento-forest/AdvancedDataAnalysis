@@ -51,8 +51,9 @@ def predict(x_list, theta):
 def plot_data(x_true, y_true, x_test, y_predicted, y_predicted2):
     fig = plt.figure(figsize=(10, 8), dpi=100)
     plt.scatter(x_true, y_true, marker='o', s=10)
-    plt.plot(x_test, y_predicted, c='r', lw=1)
-    plt.plot(x_test, y_predicted2, c='green', lw=1, linestyle='--')
+    plt.plot(x_test, y_predicted, c='r', lw=1, label='Robust')
+    plt.plot(x_test, y_predicted2, c='green', lw=1, linestyle='--', label='l2norm')
+    plt.legend(fontsize=15)
     return fig
 
 
