@@ -67,6 +67,7 @@ def train_predict_for_class_c(c, K_train, K_test, x_train, y_train, x_test):
 # calc K Matrix
 ## for train
 K_train = get_KMatrix(x_train, x_train, h=1)
+## for test
 K_test = get_KMatrix(x_train, x_test, h=1)
 
 y_predicted = np.zeros((2000, 10))
