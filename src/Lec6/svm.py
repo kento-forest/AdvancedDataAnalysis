@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-np.random.seed(0)
+np.random.seed(16)
 
 
 def generate_data(sample_size):
@@ -42,8 +42,8 @@ def visualize(x, y, w):
     plt.xlim(-10, 10)
     plt.ylim(-10, 10)
     plt.scatter(x[y == 1, 0], x[y == 1, 1], c='b', marker='x')
-    plt.scatter(x[y == -1, 0], x[y == -1, 1], c='r', marker='o', s=30)
-    plt.scatter(x[y == -1, 0], x[y == -1, 1], c='w', marker='.', s=10)
+    plt.scatter(x[y == -1, 0], x[y == -1, 1], facecolors='none',
+                edgecolors='r', marker='o', s=30)
     plt.plot([-10, 10], -(w[2] + np.array([-10, 10]) * w[0]) / w[1], c='limegreen', lw=1)
     return fig
 
