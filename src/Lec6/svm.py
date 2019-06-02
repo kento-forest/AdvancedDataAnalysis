@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-np.random.seed(16)
+np.random.seed(100)
 
 
 def generate_data(sample_size):
@@ -21,7 +21,7 @@ def svm(x, y, l, lr):
     w = np.zeros(3)
     prev_w = w.copy()
     grad = np.zeros(3)
-    R = np.dot(x[:, :2].T, x[:, :2])
+    R = np.eye(3)
     for i in range(10000):
         f_x = np.dot(x, w)
         tmp = 1 - f_x * y
@@ -30,7 +30,7 @@ def svm(x, y, l, lr):
                 grad += np.zeros(3)
             else:
                 grad -= y[i] * x[i]
-        w -= lr * (grad + np.append(l * np.dot(R, w[:2]), 0))
+        w -= lr * (grad + l * np.dot(R, w))
         if np.linalg.norm(w - prev_w) < 1e-3:
             break
         prev_w = w.copy()
@@ -49,6 +49,6 @@ def visualize(x, y, w):
 
 
 x, y = generate_data(200)
-w = svm(x, y, l=0.03, lr=0.01)
+w = svm(x, y, l=0.1, lr=1)
 fig = visualize(x, y, w)
 plt.savefig('../../output/Lec6/result.png', bbox_inches='tight')
