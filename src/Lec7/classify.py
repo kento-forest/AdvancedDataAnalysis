@@ -36,7 +36,7 @@ def visualize(x, y, theta, h):
     X = np.linspace(-5, 5, num=10000)
     K = np.exp(-(x - X[:, None]) ** 2 / (2 * h ** 2))
     
-    fig = plt.figure(figsize=(6, 4), dpi=200)
+    _ = plt.figure(figsize=(6, 4), dpi=200)
     plt.xlim(-5, 5)
     plt.ylim(-0.3, 1.5)
     unnormalized_prob = K.dot(theta)
