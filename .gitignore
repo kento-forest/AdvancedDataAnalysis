@@ -2,3 +2,4 @@ ENV
 report
 .vscode
 input
+.DS_Store
