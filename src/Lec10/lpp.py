@@ -51,7 +51,7 @@ def visualize(x, tlpp):
     plt.ylim((-6, 6))
     plt.scatter(x[:, 0], x[:, 1], c='r', marker='x', s=30)
     plt.plot([-5, 5], [-5 / tlpp[0] * tlpp[1], 5 / tlpp[0] * tlpp[1]], c='limegreen')
-    plt.savefig('../../output/Lec10/result.png')
+    plt.savefig('../../output/Lec10/result.png', dpi=200, bbox_inches='tight')
 
 
 
