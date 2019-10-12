@@ -6,7 +6,7 @@
 <img src="formula/lec8-1.png" width="200">
 </div>
 
-に対して適用する．
+に対して適用する．[実装](./src/Lec8/adaptive.py)
 
 ### 結果
 <div align="center">
