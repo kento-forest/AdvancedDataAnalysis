@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib
-
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
@@ -69,3 +68,4 @@ train_x, train_y = generate_data(n_total=100, n_positive=90)
 eval_x, eval_y = generate_data(n_total=100, n_positive=10)
 theta = cwls(train_x, train_y, eval_x)
 visualize(train_x, train_y, eval_x, eval_y, theta)
+

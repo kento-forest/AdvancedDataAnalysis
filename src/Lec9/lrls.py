@@ -1,6 +1,5 @@
 import numpy as np
 import matplotlib
-
 matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
@@ -73,3 +72,4 @@ def visualize(x, y, theta, h=1.):
 x, y = generate_data(n=200)
 theta = lrls(x, y, h=1.)
 visualize(x, y, theta)
+
