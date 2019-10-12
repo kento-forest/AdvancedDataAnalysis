@@ -57,6 +57,7 @@
 <div align="center">
 <img src="formula/lec10-1.png" width="350">
 </div>
+
 として実装した．[（実装）](src/Lec10/lpp.py)
 
 ### 結果
