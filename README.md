@@ -32,5 +32,21 @@
 データのなす領域に沿った識別面が得られている．
 
 ## 転移学習
-線形モデルに対してクラス比重み付き最小二乗法を実装する．
+線形モデルに対してクラス比重み付き最小二乗法を実装する．訓練データとテストデータでクラスを構成する点の比率が異なるデータを用いた．
 
+### 結果
+左が訓練データ，右がテストデータ．
+
+##### 重みなしの最小二乗法による分類結果
+<div align="center">
+<img src="output/Lec9/result_no_weight_train.png" width="330">
+<img src="output/Lec9/result_no_weight_test.png" width="330">
+</div>
+
+##### 重み付き最小二乗法による分類結果
+<div align="center">
+<img src="output/Lec9/result_cwls_train.png" width="330">
+<img src="output/Lec9/result_cwls_test.png" width="330">
+</div>
+
+重みなしのときはテストデータが正しく分類できていなかったが，重み付き最小二乗法によって，テストデータも正しく分類する識別面が得られていることが確認できる．
