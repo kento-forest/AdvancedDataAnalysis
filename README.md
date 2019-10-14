@@ -1,4 +1,21 @@
 # AdvancedDataAnalysis
+## 最小二乗回帰
+ガウスカーネルモデルに対するl2-正則化を用いた最小二乗回帰を実装する．
+正則化パラメータとガウス幅を交差確認法によって決定する．[（実装）](src/Lec2/cross_validation.py)
+
+### 結果
+<div align="center">
+<img src="output/Lec2/result.png">
+</div>
+これにより
+<div align="center">
+<img src="formula/lec2-1.png" width=80>
+</div>
+<div align="center">
+<img src="formula/lec2-2.png" width=80>
+</div>
+と決めた．
+
 ## 適応正則化学習
 二乗ヒンジ損失に基づく適応正則化分類を線形モデル
 
