@@ -12,6 +12,23 @@
 <img src="output/Lec2/result2.png" width="500">
 </div>
 
+## スパース回帰
+ガウスカーネルモデルに対し，L1正則化学習を実装しスパースな解を得る．
+スパース回帰は解析的な解が求まらないため，交互方向乗数法による反復式で解を求める．
+
+### 結果
+<div align="center">
+<img src="output/Lec3/result2.png" width="500">
+</div>
+スパース回帰によって良い結果が得られている．また，L2正則化のときのパラメータと
+スパース回帰のときのパラメータを比較してみると，
+
+<div align="center">
+<img src="output/Lec2/params.png" width="290">
+<img src="output/Lec3/params.png" width="286">
+</div>
+となり，右側のスパース回帰によって得られたパラメータの方は零であるものがほとんどであることが確認できる．
+
 ## 適応正則化学習
 二乗ヒンジ損失に基づく適応正則化分類を線形モデル
 
