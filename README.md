@@ -7,14 +7,10 @@
 <div align="center">
 <img src="output/Lec2/result.png">
 </div>
-これにより
+これより決定したパラメータを用いて最小二乗回帰を行った結果が以下の通り．
 <div align="center">
-<img src="formula/lec2-1.png" width=80>
+<img src="output/Lec2/result2.png" width="500">
 </div>
-<div align="center">
-<img src="formula/lec2-2.png" width=80>
-</div>
-と決めた．
 
 ## 適応正則化学習
 二乗ヒンジ損失に基づく適応正則化分類を線形モデル
